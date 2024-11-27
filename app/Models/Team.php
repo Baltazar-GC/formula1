@@ -13,7 +13,7 @@ class Team extends Model
         'name',
         'country',
         'year_founded',
-        'team_principal',
+        'team_principal'
     ];
 
     public function pilots()

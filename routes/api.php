@@ -10,13 +10,24 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::apiResource('teams', TeamController::class);
-
-Route::middleware('auth:sanctum')->group(function () {
-    Route::get('teams/{team}/pilots', [TeamController::class, 'pilots']);
+Route::prefix('teams')->group(function () {
+    Route::get('/', [TeamController::class, 'index']);
+    Route::post('/', [TeamController::class, 'store']);
+    Route::get('/search', [TeamController::class, 'search']);
+    Route::get('/{team}/pilots', [TeamController::class, 'pilots']);
+    Route::get('/{team}/statistics', [TeamController::class, 'statistics']);
+    Route::get('/{team}', [TeamController::class, 'show']);
+    Route::put('/{team}', [TeamController::class, 'update']);
+    Route::delete('/{team}', [TeamController::class, 'destroy']);
 });
 
-Route::apiResource('pilots', PilotController::class);
+Route::prefix('pilots')->group(function () {
+    Route::get('/', [PilotController::class, 'index']);
+    Route::post('/', [PilotController::class, 'store']); 
+    Route::get('/{pilot}', [PilotController::class, 'show']);
+    Route::put('/{pilot}', [PilotController::class, 'update']);
+    Route::delete('/{pilot}', [PilotController::class, 'destroy']);
+});
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);

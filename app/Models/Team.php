@@ -12,8 +12,10 @@ class Team extends Model
     protected $fillable = [
         'name',
         'country',
+        'director',
         'year_founded',
-        'team_principal'
+        'team_principal',
+        'logo'
     ];
 
     public function pilots()
